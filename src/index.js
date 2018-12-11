@@ -3,6 +3,7 @@ import { render } from 'react-dom';
 import App from './App';
 import { AppContainer } from 'react-hot-loader';
 import ws from './app/utils/webSocket';
+import './app/styles/styles.scss';
 
 window.ws = ws;
 localStorage.removeItem('auth');
@@ -22,5 +23,5 @@ renderApp(App);
 if(module.hot) {
 	module.hot.accept('./App.js', () => {
 		renderApp(App)
-	})
+	});
 }

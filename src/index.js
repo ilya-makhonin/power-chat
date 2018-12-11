@@ -1,12 +1,26 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
+import { render } from 'react-dom';
 import App from './App';
-import * as serviceWorker from './serviceWorker';
+import { AppContainer } from 'react-hot-loader';
+import ws from './app/utils/webSocket';
 
-ReactDOM.render(<App />, document.getElementById('root'));
+window.ws = ws;
+localStorage.removeItem('auth');
 
-// If you want your app to work offline and load faster, you can change
-// unregister() to register() below. Note this comes with some pitfalls.
-// Learn more about service workers: http://bit.ly/CRA-PWA
-serviceWorker.unregister();
+const renderApp = Component => {
+	render(
+		<AppContainer>
+			<Component />
+		</AppContainer>,
+		document.querySelector('#root')
+	);
+};
+
+renderApp(App);
+
+
+if(module.hot) {
+	module.hot.accept('./App.js', () => {
+		renderApp(App)
+	})
+}

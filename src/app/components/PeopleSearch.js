@@ -1,5 +1,9 @@
 import React, { Component } from 'react'
 
+/**
+ * This component don't use
+ */
+
 export default class PeopleSearch extends Component {
 	render() {
 		return (

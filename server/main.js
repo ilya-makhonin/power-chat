@@ -66,16 +66,16 @@ wss.on('connection', function(ws) {
 
 app.set('port', process.env.PORT || 3000);
 app.set('views', __dirname + '/views');
-// app.use(express.favicon());
-// app.use(express.logger('dev'));
+// app.use(express.favicon());          // serve-favicon
+// app.use(express.logger('dev'));      // morgan
 // app.use(express.bodyParser());
-// app.use(express.methodOverride());
+// app.use(express.methodOverride());   // method-override
 app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 let env = process.env.NODE_ENV || 'development';
 if ('development' === env) {
-    app.use(express.errorHandler());
+    app.use(express.errorHandler());    // errorhandler
 }
 
 app.get('/', function(req, res) {

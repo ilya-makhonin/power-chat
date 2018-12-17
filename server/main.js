@@ -2,13 +2,14 @@ let express = require('express');
 let http = require('http');
 let path = require('path');
 
+// Create server
 let app = express();
 let server = http.createServer(app);
 let WebSocketServer = require('ws').Server;
 let wss = new WebSocketServer({ server: server });
 
+// Color for an avatar
 let colors = ['red', 'green', 'blue', 'magenta', 'purple', 'plum', 'orange'];
-
 colors.sort(function(a, b) {
     return Math.random() > 0.5;
 });
@@ -73,7 +74,7 @@ app.use(app.router);
 app.use(express.static(path.join(__dirname, 'public')));
 
 let env = process.env.NODE_ENV || 'development';
-if ('development' == env) {
+if ('development' === env) {
     app.use(express.errorHandler());
 }
 

@@ -6,9 +6,9 @@ This chat was created on React.js and Node.js.
 Client side was created using Create-React-App. 
 
 ---
-Start server and client - **nmp start**
-Start server - **npm start:server**
-Start client (not build) - **npm start:client**
+> Start server and client - **nmp start**
+> Start server - **npm start:server**
+> Start client (not build) - **npm start:client**
 
 
 #### Todo

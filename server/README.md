@@ -6,4 +6,4 @@ Technology stack:
 * Express
 * WS
 ---
-Start server - **npm start**
+> Start server - **npm start**

@@ -28,13 +28,10 @@ wss.on('connection', function(ws) {
             for (let i = 0; i < clients.length; i++) {
                 clients[i].send(JSON.stringify({ type: 'connected_new_user', userID: ws.userID, userName}   ));
             }
-
             console.log(userName + ' login');   // *********************************
-
-        } else {
-
+        }
+        else {
             console.log(userName + ' say: ' + msg);   // *********************************
-
             let obj = {
                 time: (new Date()).getTime(),
                 text: msg,
@@ -51,7 +48,7 @@ wss.on('connection', function(ws) {
         let index = clients.indexOf(ws);
 
         clients.splice(index, 1);
-        if (userName !== false && userColor != false) {
+        if (userName !== false && userColor !== false) {
             colors.push(userColor);
         }
 

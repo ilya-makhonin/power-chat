@@ -2,6 +2,14 @@ let express = require('express');
 let http = require('http');
 let path = require('path');
 
+let favicon = require('serve-favicon');
+let logger = require('morgan');
+let methodOverride = require('method-override');
+let bodyParser = require('body-parser');
+let multer = require('multer');
+let errorHandler = require('errorhandler');
+let session = require('express-session');
+
 // Create server
 let app = express();
 let server = http.createServer(app);
@@ -10,7 +18,7 @@ let wss = new WebSocketServer({ server: server });
 
 // Color for an avatar
 let colors = ['red', 'green', 'blue', 'magenta', 'purple', 'plum', 'orange'];
-colors.sort(function(a, b) {
+colors.sort(function() {
     return Math.random() > 0.5;
 });
 
@@ -26,7 +34,7 @@ wss.on('connection', function(ws) {
             userColor = colors.shift();
 
             for (let i = 0; i < clients.length; i++) {
-                clients[i].send(JSON.stringify({ type: 'connected_new_user', userID: ws.userID, userName}   ));
+                clients[i].send(JSON.stringify({ type: 'connected_new_user', userID: ws.userID, userName}));
             }
             console.log(userName + ' login');   // *********************************
         }
@@ -62,25 +70,26 @@ wss.on('connection', function(ws) {
 });
 
 app.set('port', process.env.PORT || 3000);
-app.set('views', __dirname + '/views');
-// app.use(express.favicon());          // serve-favicon
-// app.use(express.logger('dev'));      // morgan
-// app.use(express.bodyParser());
-// app.use(express.methodOverride());   // method-override
-app.use(app.router);
+app.set('views', path.join(__dirname, 'views'));
+app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(logger('dev'));
+app.use(methodOverride());
+app.use(session({ resave: true,
+    saveUninitialized: true,
+    secret: 'uwotm8' }));
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(multer());
 app.use(express.static(path.join(__dirname, 'public')));
-
-let env = process.env.NODE_ENV || 'development';
-if ('development' === env) {
-    app.use(express.errorHandler());    // errorhandler
-}
 
 app.get('/', function(req, res) {
     res.sendfile('views/chat.html');
 });
 
+if ('development' === app.get('env')) {
+    app.use(errorHandler());
+}
+
 server.listen(app.get('port'), function() {
-
     console.log("Express server listening on port " + app.get('port'));   // *********************************
-
 });

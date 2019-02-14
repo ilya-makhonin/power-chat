@@ -74,12 +74,9 @@ app.set('views', path.join(__dirname, 'views'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(methodOverride());
-app.use(session({ resave: true,
-    saveUninitialized: true,
-    secret: 'uwotm8' }));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(multer());
+//app.use(multer());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {

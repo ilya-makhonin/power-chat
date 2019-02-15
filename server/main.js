@@ -6,7 +6,6 @@ let favicon = require('serve-favicon');
 let logger = require('morgan');
 let methodOverride = require('method-override');
 let bodyParser = require('body-parser');
-let multer = require('multer');
 let errorHandler = require('errorhandler');
 let session = require('express-session');
 
@@ -69,14 +68,13 @@ wss.on('connection', function(ws) {
 
 });
 
-app.set('port', process.env.PORT || 3000);
+app.set('port', process.env.PORT || 4000);
 app.set('views', path.join(__dirname, 'views'));
 app.use(favicon(__dirname + '/public/favicon.ico'));
 app.use(logger('dev'));
 app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-//app.use(multer());
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.get('/', function(req, res) {

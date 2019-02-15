@@ -9,6 +9,7 @@ $(function () {
     connection.onopen = function () {
         status.text('Choose name:');
     };
+
     connection.onmessage = function (message) {
         let json = JSON.parse(message.data);
         if (json.type === 'color') { // first response from the server with user's color

@@ -7,7 +7,6 @@ let logger = require('morgan');
 let methodOverride = require('method-override');
 let bodyParser = require('body-parser');
 let errorHandler = require('errorhandler');
-let session = require('express-session');
 
 // Create server
 let app = express();
@@ -70,21 +69,24 @@ wss.on('connection', function(ws) {
 
 app.set('port', process.env.PORT || 4000);
 app.set('views', path.join(__dirname, 'views'));
-app.use(favicon(__dirname + '/public/favicon.ico'));
+app.use(favicon(__dirname + '/build/favicon.ico'));
 app.use(logger('dev'));
 app.use(methodOverride());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
-app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', function(req, res) {
-    res.sendfile('views/chat.html');
-});
+// app.use(favicon(__dirname + '/public/favicon.ico'));
+// app.use(express.static(path.join(__dirname, 'public')));
+// app.get('/', function(req, res) {
+//     res.sendfile('views/chat.html');
+// });
+
+app.use('/', express.static(path.join(__dirname, 'build')));
 
 if ('development' === app.get('env')) {
     app.use(errorHandler());
 }
 
 server.listen(app.get('port'), function() {
-    console.log("Express server listening on port " + app.get('port'));   // *********************************
+    console.log("Express server listening on port " + app.get('port'));
 });

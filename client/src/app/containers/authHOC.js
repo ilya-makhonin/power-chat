@@ -3,7 +3,7 @@ import ws from '../utils/webSocket';
 
 
 export default (ChildComponent) => {
-	return class authHOC extends Component {
+	return class extends Component {
 		auth() {
 			if( localStorage.getItem('auth') ) return true;
 
@@ -20,7 +20,7 @@ export default (ChildComponent) => {
 		noName() {
 			return <div className="noname-wrap">
 				You didn't enter name :C <br/>
-				<button onClick={ () => { location.reload() }}>try again?</button>
+				<button onClick={ () => { location.reload() }}>Try again?</button>
 			</div>
 		}
 

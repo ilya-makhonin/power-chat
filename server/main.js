@@ -8,7 +8,7 @@ let methodOverride = require('method-override');
 let bodyParser = require('body-parser');
 let errorHandler = require('errorhandler');
 
-// Create server
+// Create a server
 let app = express();
 let server = http.createServer(app);
 let WebSocketServer = require('ws').Server;
@@ -22,6 +22,7 @@ colors.sort(function() {
 
 let clients = [];
 
+// Open WebSocket
 wss.on('connection', function(ws) {
     clients.push(Object.assign(ws, { userID: Date.now() }));
     let userName = false;
@@ -67,6 +68,7 @@ wss.on('connection', function(ws) {
 
 });
 
+// Setting the server
 app.set('port', process.env.PORT || 4000);
 app.set('views', path.join(__dirname, 'views'));
 app.use(favicon(__dirname + '/build/favicon.ico'));

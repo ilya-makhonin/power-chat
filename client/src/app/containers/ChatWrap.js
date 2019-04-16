@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PeopleList from './PeopleList';
 import MessagesList from './MessageList';
-// import authHOC from './authHOC';
+import authHOC from './authHOC';
 
 
 class ChatWrap extends Component {
@@ -15,5 +15,4 @@ class ChatWrap extends Component {
 	}
 }
 
-// export default authHOC(ChatWrap);
-export default ChatWrap;
+export default authHOC(ChatWrap);

@@ -30,7 +30,6 @@ export default ((wsUrl) => {
 	let countReconnect = 0;
 	const emit = (message) => {
 		if (countReconnect > 5) return;
-
 		if (ws.readyState === ws.CONNECTING) {
 			setTimeout(() => {
 				emit(message);
@@ -38,11 +37,9 @@ export default ((wsUrl) => {
 			}, 500);
 			return;
 		}
-
 		ws.send(message);
 		countReconnect = 0
 	};
 
 	return { emit };
-
 })('ws://localhost:4000');
